@@ -4,8 +4,10 @@ import org.junit.Test;
 
 import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
@@ -226,6 +228,64 @@ public class Jdbc_Test {
     public void testUpdate(){
         String sql = "delete from customers where id = 3";
         update(sql);
+    }
+
+    /**
+     * ResultSet: 结果集. 封装了使用 JDBC 进行查询的结果.
+     * 1. 调用 Statement 对象的 executeQuery(sql) 可以得到结果集.
+     * 2. ResultSet 返回的实际上就是一张数据表. 有一个指针指向数据表的第一样的前面.
+     * 可以调用 next() 方法检测下一行是否有效. 若有效该方法返回 true, 且指针下移. 相当于
+     * Iterator 对象的 hasNext() 和 next() 方法的结合体
+     * 3. 当指针对位到一行时, 可以通过调用 getXxx(index) 或 getXxx(columnName)
+     * 获取每一列的值. 例如: getInt(1), getString("name")
+     * 4. ResultSet 当然也需要进行关闭.
+     */
+    @Test
+    public void testResultSet(){
+        //获取 id=4 的 customers 数据表的记录, 并打印
+
+        Connection conn = null;
+        Statement statement = null;
+        ResultSet rs = null;
+
+        try {
+            //1. 获取 Connection
+            conn = JDBCTools.getConnection();
+            System.out.println(conn);
+
+            //2. 获取 Statement
+            statement = conn.createStatement();
+            System.out.println(statement);
+
+            //3. 准备 SQL
+            String sql = "SELECT id, name, email, birth " +
+                    "FROM customers";
+
+            //4. 执行查询, 得到 ResultSet
+            rs = statement.executeQuery(sql);
+            System.out.println(rs);
+
+            //5. 处理 ResultSet
+            while(rs.next()){
+                //获取第 1 列的值
+                int id = rs.getInt(1);
+                //获取列名是 name 的值
+                String name = rs.getString("name");
+                String email = rs.getString(3);
+                Date birth = rs.getDate(4);
+
+                System.out.print("\t" + id);
+                System.out.print("\t" + name);
+                System.out.print("\t" + email);
+                System.out.print("\t" + birth);
+                System.out.println();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            //6. 关闭数据库资源.
+            JDBCTools.release(rs, statement, conn);
+        }
     }
 
 

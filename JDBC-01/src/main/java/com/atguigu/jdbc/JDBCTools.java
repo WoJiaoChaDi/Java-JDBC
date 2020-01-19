@@ -3,6 +3,8 @@ package com.atguigu.jdbc;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
@@ -63,6 +65,34 @@ public class JDBCTools {
 
 		// 3. 通过 DriverManager 的 getConnection() 方法获取数据库连接.
 		return DriverManager.getConnection(jdbcUrl, user, password);
+	}
+
+	public static void release(ResultSet rs,
+							   Statement statement, Connection conn) {
+		if(rs != null){
+			try {
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+
+		if (statement != null) {
+			try {
+				statement.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+
+		if (conn != null) {
+			try {
+				conn.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
 	}
 
 }
