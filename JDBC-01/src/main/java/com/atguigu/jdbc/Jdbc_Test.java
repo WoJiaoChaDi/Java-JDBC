@@ -201,6 +201,32 @@ public class Jdbc_Test {
                     conn.close();
             }
         }
-
     }
+
+    /**
+     * 通用的更新的方法: 包括 INSERT、UPDATE、DELETE
+     * 版本 1.
+     */
+    public void update(String sql){
+        Connection conn = null;
+        Statement statement = null;
+
+        try {
+            conn = JDBCTools.getConnection();
+            statement = conn.createStatement();
+            statement.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            JDBCTools.release(statement, conn);
+        }
+    }
+
+    @Test
+    public void testUpdate(){
+        String sql = "delete from customers where id = 3";
+        update(sql);
+    }
+
+
 }
