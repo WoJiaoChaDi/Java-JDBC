@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 public class Jdbc_Test {
@@ -144,5 +145,62 @@ public class Jdbc_Test {
 
         //3. 通过 DriverManager 的 getConnection() 方法获取数据库连接.
         return DriverManager.getConnection(jdbcUrl, user, password);
+    }
+
+    /**
+     * 通过 JDBC 向指定的数据表中插入一条记录.
+     *
+     * 1. Statement: 用于执行 SQL 语句的对象
+     * 1). 通过 Connection 的 createStatement() 方法来获取
+     * 2). 通过 executeUpdate(sql) 可以执行 SQL 语句.
+     * 3). 传入的 SQL 可以是 INSRET, UPDATE 或 DELETE. 但不能是 SELECT
+     *
+     * 2. Connection、Statement 都是应用程序和数据库服务器的连接资源. 使用后一定要关闭.
+     * 需要在 finally 中关闭 Connection 和 Statement 对象.
+     *
+     * 3. 关闭的顺序是: 先关闭后获取的. 即先关闭 Statement 后关闭 Connection
+     */
+    @Test
+    public void testStatement() throws Exception{
+        Connection conn = null;
+        Statement statement = null;
+
+        try {
+            //1. 获取数据库连接
+            conn = getConnection2();
+
+            //3. 准备插入的 SQL 语句
+            String sql = null;
+
+			//sql = "INSERT INTO customers (NAME, EMAIL, BIRTH) " +
+			//		"VALUES('XYZ', 'xyz@atguigu.com', '1990-12-12')";
+            //sql = "DELETE FROM customers WHERE id = 2";
+            sql = "UPDATE customers SET name = 'TOM' " +
+                    "WHERE id = 3";
+            System.out.println(sql);
+
+            //4. 执行插入.
+            //1). 获取操作 SQL 语句的 Statement 对象:
+            //调用 Connection 的 createStatement() 方法来获取
+            statement = conn.createStatement();
+
+            //2). 调用 Statement 对象的 executeUpdate(sql) 执行 SQL 语句进行插入
+            statement.executeUpdate(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            try {
+                //5. 关闭 Statement 对象.
+                if(statement != null)
+                    statement.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally{
+                //2. 关闭连接
+                if(conn != null)
+                    conn.close();
+            }
+        }
+
     }
 }
