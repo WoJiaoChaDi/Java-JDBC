@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Driver;
+import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
 
@@ -77,5 +78,41 @@ public class Jdbc_Test {
     @Test
     public void testGetConnection() throws Exception{
         System.out.println(getConnection());
+    }
+
+    /**
+     * DriverManager 是驱动的管理类.
+     * 1). 可以通过重载的 getConnection() 方法获取数据库连接. 较为方便
+     * 2). 可以同时管理多个驱动程序: 若注册了多个数据库连接, 则调用 getConnection()
+     * 方法时传入的参数不同, 即返回不同的数据库连接。
+     * @throws Exception
+     */
+    @Test
+    public void testDriverManager() throws Exception{
+        //1. 准备连接数据库的 4 个字符串.
+        //驱动的全类名.
+        String driverClass = "com.mysql.jdbc.Driver";
+        String driverClass2 = "oracle.jdbc.driver.OracleDriver";
+
+        String jdbcUrl = "jdbc:mysql://192.168.198.151:3306/test";
+        String user = "root";
+        String password = "root";
+
+        String jdbcUrl2 = "jdbc:oracle:thin:@localhost:1521:orcl";
+        String user2 = "scott";
+        String password2 = "scott";
+
+        //2. 加载数据库驱动程序
+        //实际上应该这么写
+        //DriverManager.registerDriver((Driver) Class.forName(driverClass).newInstance());
+        //（因为对应的 Driver 实现类中有注册驱动的静态代码块.)
+        Class.forName(driverClass);
+        //Class.forName(driverClass2);
+
+        //3. 通过 DriverManager 的 getConnection() 方法获取数据库连接. 用DriverManager可以管理多个驱动程序
+        Connection connection = DriverManager.getConnection(jdbcUrl, user, password);
+        //Connection connection2 = DriverManager.getConnection(jdbcUrl2, user2, password2);
+        System.out.println(connection);
+        //System.out.println(connection2);
     }
 }
