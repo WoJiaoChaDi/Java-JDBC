@@ -193,6 +193,7 @@ public class JDBCTest {
         Connection connection2 = dataSource.getConnection();
         System.out.println(">" + connection2.getClass());
 
+        //第6个连接，去获取的时候，前面5个还没释放，所以第6个等待超过5秒，就抛出异常了
         new Thread(){
             public void run() {
                 Connection conn;
