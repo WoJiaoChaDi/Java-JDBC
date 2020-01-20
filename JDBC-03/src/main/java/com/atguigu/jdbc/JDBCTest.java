@@ -1,5 +1,6 @@
 package com.atguigu.jdbc;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbcp.BasicDataSource;
 import org.apache.commons.dbcp.BasicDataSourceFactory;
 import org.junit.Test;
@@ -241,4 +242,41 @@ public class JDBCTest {
 //
 //		System.out.println(basicDataSource.getMaxWait());
 	}
+
+	/**
+	 * c3p0测试
+	 * @throws Exception
+	 */
+	@Test
+	public void testC3P0() throws Exception{
+		ComboPooledDataSource cpds = new ComboPooledDataSource();
+		cpds.setDriverClass( "com.mysql.jdbc.Driver" ); //loads the jdbc driver
+		cpds.setJdbcUrl( "jdbc:mysql:///atguigu" );
+		cpds.setUser("root");
+		cpds.setPassword("1230");
+
+		System.out.println(cpds.getConnection());
+	}
+
+	/**
+	 * 1. 创建 c3p0-config.xml 文件,
+	 * 参考帮助文档中 Appendix B: Configuation Files 的内容
+	 * 2. 创建 ComboPooledDataSource 实例；
+	 * DataSource dataSource =
+	 *			new ComboPooledDataSource("helloc3p0");
+	 * 3. 从 DataSource 实例中获取数据库连接.
+	 */
+	@Test
+	public void testC3poWithConfigFile() throws Exception{
+		DataSource dataSource =
+				new ComboPooledDataSource("helloc3p0");
+
+		System.out.println(dataSource.getConnection());
+
+		ComboPooledDataSource comboPooledDataSource =
+				(ComboPooledDataSource) dataSource;
+		System.out.println(comboPooledDataSource.getMaxStatements());
+	}
+
+
 }
