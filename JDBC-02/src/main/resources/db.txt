@@ -1,0 +1,74 @@
+/*
+SQLyog Ultimate v10.00 Beta1
+MySQL - 5.0.15-nt : Database - atguigu
+*********************************************************************
+*/
+
+
+/*!40101 SET NAMES utf8 */;
+
+/*!40101 SET SQL_MODE=''*/;
+
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/`atguigu` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci */;
+
+USE `atguigu`;
+
+/*Table structure for table `customers` */
+
+DROP TABLE IF EXISTS `customers`;
+
+CREATE TABLE `customers` (
+  `ID` int(6) NOT NULL auto_increment,
+  `NAME` varchar(25) default NULL,
+  `EMAIL` varchar(25) default NULL,
+  `BIRTH` date default NULL,
+  `PICTURE` mediumblob,
+  PRIMARY KEY  (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `customers` */
+
+insert  into `customers`(`ID`,`NAME`,`EMAIL`,`BIRTH`,`PICTURE`) values (1,'A','A@gmail.com','2020-01-01',NULL),(2,'B','B@gmail.com','2020-01-02',NULL),(3,'C','C@gmail.com','2020-01-03',NULL),(4,'ATGUIGU','simpleit@163.com','2020-01-20',NULL),(5,'ABCDE','abcde@atguigu.com','2020-01-20','‰PNG\r\n\Z\n\0\0\0\rIHDR\0\0\0¨\0\0\0‰\0\0\0¸»s\'\0\0\0	pHYs\0\0Ä\0\0Ä•+\0\0\rÊIDATxœí¯W2AÛÇ?ûœ÷?@9GTîC P `¡±`²bÌš46¬–W\nÄ»P¤@1x¤BÐs@þ†}ÂîÂ²°?ø¥ÃíõI÷í°³3³×ÌÎÌõÝk´x<®#ŠòŸŸ.€ x!*(ÍÿýÔu=Åe%A·X¥£ié©B™ó?Æßõ÷JO\0\"¹.xæ¾1\\šo$wC)­ò¡f»Wž?¶û¼¿\\ñÔÑÐSÏÿ8Êö5½^ä¸-e80¯^ç‘gìõs^»´ËÊùõJù®Î€(g·%NfùYmæWN¿ö´ß×ºßPso—mócêEªP&Ob±3ýÿMîÃµ-t=B2>¦Vƒl2Jchÿ}Ÿ—+£3{KîãŽFç‰bgY‡1°§W.ÚŒÕ¸®>ðÈsèý œõ3°:Óò:hf9§uM¨$>j\Zè\0^Üî½^9#¹JñWUã>\0šw»øå¹*4U¸á¨Û#ž7zLÐžä–f=þ<>rŽ­Ç§\nä©MGL€vµFâ6IÄ°\nw¢Iâã.õ#²Yã÷Ã%£3ƒ7z“ácÀÃæ£gYbý&Of£kÃÏ­8É(E	˜§É‘õ©Û°¬lê ëÎ²‡´žÛX†˜ å´:ŠùœçŠèÑ.óƒÂæACd²P.j†¦ëTÛ^#LÚ½—=•h»¼âÓ‰ýn•Hî–ë“\0Þ_^•2šŒ3îÖa¥ÇÉh¥íMõiú<ßãpˆ~wþGƒÏ1¡ÄñÚyr&4ñ±IÒ§dÆMJs£Uˆ“ëGN˜Ÿ¢¬]Îh’8#¸¬P1“¯×îCŸvù…~sÖ“:O%:hN,ô¤f?Câ8öHs©ƒ®G8:ìÓý8ã\"Ûãáêäí)ŸmHd½Ëgôx½¦\ryëáèÑ1Î­ÑÚ|€Ëæ¾«ážg$w3í`ºþNÍe®½Z¬Ñ3F¿YÅ2MÒ¸/Ñ°~“*P)]òY¬ÒÞ¤î¡áf‘â“5ç¾ ÷vÇç*M´!êÍAÇ#>ŽÃ„Æ]sÊˆ·èÙ±1ßŠ¸]M…80G\0ýËxE\ZoãÙ<ÌÀÿ}Œ&d¢Ø{TôèÉè8öÌsØ¸§Ø°efýæcÄ$fi?õ¨Ãô5›>%C‹²×ØîÒÏ\'lX½î\0LZü5ï£iºý<‰cxól—í²Ù6ÓÇˆI,K.bìõó«	£Ÿ´)‡EÝòÍS©d9$C©§÷·íY”h2­2Åb‘b±ÈÕÕ}ÓÖeðÖƒÌÅ\\.2cš~saïLéMbä/ÓI~u˜ž‹óÂ¹|Î²ÄúÝÍÞƒ7zÄIF­{§H˜Ïo\'íâÂF#¨6lpWó¸dî£ážFüÛÊrm¥¿¿P¬~Àaœ$wÜ—\ZÎ»MÿuprMÅbtý—«¿ÇCŒ›f¯=³Ç§¡ímÛ+×¯3]9¯‘§6¤~W†Û•ÊùôïÿýÿÆuètp=[Iöm¹ 8ÛÓ˜Ž©?÷¸-U8±-r½žíæS¦E4Õ\\‘Ü\r¥ps¥þ]”3PplÒ\\`ÿ&J\Z¨ Xˆ/^P\Z1PAiÄ@¥QÖ@õHŽ›r™BJ¦È¿™\rT×SÊRº’°}ÔsušhÃ†¹Y/ÛK¿™@ÛLnâZçßaÞ‹á”Û¡ˆ¹«Ï)™ìZÌ¶M|»lt<eu	4‚\Zê%Ã@.Iµ«t<ds¢ÖTJ¢kŠŽÝ=ä–2§nækgÝ<…ý%:?7Ðõ÷Hìø\Z¨®§¸Ìòú`ô%#Û2,¡ÃùTPðî®\"È.òÔfåERú2OŒ>Ý¹¿š²9›ÀQäÈ¶x¸ªÏ}Ï²ìšåy.²‹<µYy‘ôõúÊ8ž›sÎ©Çm‹$ç\"Ê.¹³_cÏ³Mzá+Dû7Pëä)‹¤ýegb=U ’M\rƒÍŽÊ¾_g~gž‚ÚìÎ@—|½ªö;òÔFäv‚Ò(ë‹GTP\Z1PAi6R3ézÄSØ±\r¼Dó\"“´§8Ä.2q~m¯Ç®¢´	ë±Ñj	;®®^èo«D;À™d×Œ€Årxé’”®›ÆyÏe^¿dCC5 nñ:½ðŽ­é.s^§ëïS—¥W\ZÀÑÙ-•©7ÉvE:Al2xMÆ9ÐÌ€C\Z÷÷†¡máÛ~qY<Koück¼Î&NñJ3ˆ‘	å´»z;:„qwê*Í¶x}Ï\\á§ð}Å[1yZ>±‘0#ß5æ¢Û…Œ¸”+\\8\r€>µªUÎF“Ùý&#ÈÝnÑÒ}ã[#´	ëð?æs2h0ƒ]1æàüœðË÷ÍóøÓe‚à;‚\Z\ZÌÙ³eaè<ðn7‹lgHãì×%l˜€iNÒ§dBfÇjwy×¿f÷6ƒp­úR¾Ÿ@¾x·èiKÅöðàö\0üŽ­/iœ=íýåò	ß4§LÏ¹í5¿Í4K³o1Íê+ñ TAÄ\"‚Òˆ\'IP\Z1PAiÄ@¥”FTP\Z1PAiDnçL³íã\n?ÈíôgašæÙDµq†‹U½fÂÎ¹]gHãþi\Z¡äc4!äwÒªðmˆÜÎÁ²ƒR…ŸCäv6\"¹ò‡\"\"Q	‘Û™Dr7”â=Y )†ÈíãT‘Û-«ƒÈí”Aäv‚Òˆ\'IP\Z1PAiÄ@¥”FTP\Z1PAi~½ÜÎùÙ±s¿VøY62P¯cUÂ.·»ïhÓã?‹U:f\ZÖoS*§i\Zr0ƒˆÜÎQèÑ!“™?VøaDnÇ¼+×pÕäxEE¹† æ©T2ÔöÍ0¥Û3\"ºx€U à*ÞTí¦ÜîsÌÁÉ9áf‘ûÆÐ;º]»K?\')_}(Èí®K›ôxÛËùï!r;gÝä«N¥¹ 4âI”FTP\Z1PAiÄ@¥”&°ê‘7å2…Ô¿¹èÿ×ë·¯l¤f\nÂ‚œ- Ðdûåp—ííû^þu	l Ú°Á}©ÁÊáEÒ§dÆ5Š÷jË×Ö®Ÿ°S|\rÔK”lõêQë§ÄÍÄM¾æ&ÅHn8êöˆççcvÒ—Ü&€XŒÐ¤EkœáäÏìm»$Ðž§ýï9Çî\ró]ûI½êîÚ¦Ž<×yIírB{›9=bÓr¦\nkµ™*ø\Z¨¿(Ù&q‹ä¸½H©àìvê’„k*\'3wg}v•â®Ð™,”‹Å©Dî4]§\n„bP+ÖHTòÄ{eF\\E!§Ö£´DÉ©v•ÎS‰¶Ë+Ò«~þ’Áåu÷r“\ZñHgy:ñ–6:ïwF¤]g@”³ÛÝb‘§©ûÖ¨{{Ý6Sd\Z±…9¨)qÓ4|2%8:{Š\rÃç~Á³m„Ð¦²¹§9)^†„-,g¿9ó‡¨A\nèwi	ú4ëìghÛ}ÿ`øã7Â«œ÷º{¡š6ä­××Ä#çTÚXvÿ¸ü~ƒh’x(Æ‰ùv0òúbdé{¾³Í¶ÌÎIß…®§¸Ìòúpå\"fV‡¡­óV*Ž×øš‘\'-D.\Zxèo÷¡Í~fÔWŠ·9s¾)3‰_ v\\Îaãž«‡W&‡GDt}}iãà“q(Ãiz³ò,o³Ÿ%À\"i~òýçñ‘¼µhYó¦Ú°Á]-Ìãõ#\'lçKJãáæ97óüz}¥Ï¥ÿme¹¶îé\"´×o¸ƒr.ÈûÌ<­‘¯]­‘¨”¨œß–Ó´Õò·¥\n•óyÙ ×3òk3¹ 4ÿÌT–‰¸§i?ä¤Øgd”FÄ\"‚Òˆ\nJ#*(¨ 4{µŠÿŽhz‚ZìÕº/‡×\nÛÃß“ä!×ª~œq[\nÓœA0F¸p³h“¤­&«¶Ó[“±MïÉ­UNp—±-»_Ðr\nÁ	ôŠw•kµßèMJ³0†Ñ$ñqmzÜàz0p‹Rçåbô–Æ­[N/[ÔS6\'l‡`sP¹–¦\r©7ûTÌ\'Ÿ>Óû[ÇÂ¹¶lNVfRç58yHã´áºåtOÓ†î²9a{l¾Hjwéç¤tHöøk—Š­![ÎDë”3â‘†ŸlNØ/’,‰Xâ26‘ñ¶$`sQê¼ð‘Æ­UÎ€upÊæ„í±•m¦ößÙR˜f•é¨´®Ì Æ¹õíG$ºU¥q«–sèYg4½yÙœ°¶\"Yü¬c}vùyí6Ë)| V¬Ncî¥îCß—r\n‹ˆÜNPš½ò$	¿1PAiÄ@¥”F9¹Hê;Ê \"©ììVnç!G[v(¬Œ–‚“ÝÊí\\ähþ‡Â\n‚A°W¼)Ã’Æ™Xr»XÂPS2¶ö4í­\'×Üä\"óùù\n+;•Û‰MØ”ÝÉíl,ÈÑV9VøÕìLnçÅM6xnÝpmJêÞ_^èçK¯›“ÔÉê×¡„Üî·ž`!øó+ävÂþ\"r;Ai”ó$	‚1PAiÄ@¥”&êzŠB¹@j‹ß|ï\"OáßCFPAi|·™œ‡ÂüiëDóËS,íƒºyz?ú)ŸwöÈÆïŒÈpð¼<*x„ læ‹÷ˆ\'Ñß„m°¹XD¢¿	;d…EÒ’ƒX7Žþ¶âá®Â¯#°/Þ†€c‘äü¶È\'ú›}>ê–§ XˆXDP\ZÙ”FTP\Z1PAiÄ@¥”æ°¨r/éâ\0\0\0\0IEND®B`‚');
+
+/*Table structure for table `examstudent` */
+
+DROP TABLE IF EXISTS `examstudent`;
+
+CREATE TABLE `examstudent` (
+  `flow_id` int(11) NOT NULL auto_increment COMMENT 'æµæ°´å·',
+  `type` int(11) default NULL COMMENT 'å››çº§/å…­çº§',
+  `id_card` varchar(18) collate utf8_unicode_ci default NULL COMMENT 'èº«ä»½è¯å·ç ',
+  `exam_card` varchar(15) collate utf8_unicode_ci default NULL COMMENT 'å‡†è€ƒè¯å·ç ',
+  `student_name` varchar(20) collate utf8_unicode_ci default NULL COMMENT 'å­¦ç”Ÿå§“å',
+  `location` varchar(20) collate utf8_unicode_ci default NULL COMMENT 'åŒºåŸŸ',
+  `grade` int(11) default NULL COMMENT 'æˆç»©',
+  PRIMARY KEY  (`flow_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `examstudent` */
+
+insert  into `examstudent`(`flow_id`,`type`,`id_card`,`exam_card`,`student_name`,`location`,`grade`) values (1,1,'a1','e1','zhangsan','å››å·',99),(2,1,'a2','e2','lisi','åŒ—äº¬',80),(3,2,'a3','e3','wangwu','æµ™æ±Ÿ',70),(4,2,'a4','e4','zhaoliu','æ±Ÿè‹',60),(5,1,'a5','e5','feifei','ä¸Šæµ·',50);
+
+/*Table structure for table `users` */
+
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `users` (
+  `id` int(11) default NULL,
+  `username` varchar(25) collate utf8_unicode_ci default NULL,
+  `password` varchar(25) collate utf8_unicode_ci default NULL,
+  `balance` int(11) default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+/*Data for the table `users` */
+
+insert  into `users`(`id`,`username`,`password`,`balance`) values (1,'Tom','123456',1000),(2,'Jerry','123456',1000);
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
