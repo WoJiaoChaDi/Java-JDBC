@@ -30,7 +30,7 @@ public class JDBCTest {
 		try {
 			connection = JDBCTools.getConnection();
 			String sql = "SELECT id, name customerName, email, birth, picture "
-					+ "FROM customers WHERE id = 13";
+					+ "FROM customers WHERE id = 5";
 			preparedStatement = connection.prepareStatement(sql);
 			resultSet = preparedStatement.executeQuery();
 
@@ -64,11 +64,12 @@ public class JDBCTest {
 		}
 	}
 
+
 	/**
-	 * 插入 BLOB 类型的数据必须使用 PreparedStatement：因为 BLOB 类型
-	 * 的数据时无法使用字符串拼写的。
+	 *  插入 BLOB 类型的数据必须使用 PreparedStatement：因为 BLOB 类型
+	 *  的数据时无法使用字符串拼写的。
 	 *
-	 * 调用 setBlob(int index, InputStream inputStream)
+	 *  调用 setBlob(int index, InputStream inputStream)
 	 */
 	@Test
 	public void testInsertBlob(){
@@ -86,7 +87,8 @@ public class JDBCTest {
 			preparedStatement.setDate(3,
 					new Date(new java.util.Date().getTime()));
 
-			InputStream inputStream = new FileInputStream("Hydrangeas.jpg");
+			//获取项目根目录的图片
+			InputStream inputStream = new FileInputStream("Hydrangeas.png");
 			preparedStatement.setBlob(4, inputStream);
 
 			preparedStatement.executeUpdate();
