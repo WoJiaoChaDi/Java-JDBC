@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Driver;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -288,5 +289,36 @@ public class Jdbc_Test {
         }
     }
 
+    /**
+     * 使用PreparedStatement好处：
+     * 1.代码的可读性和可维护性.
+     * 2.PreparedStatement 能最大可能提高性能：
+     * 3.PreparedStatement 可以防止 SQL 注入
+     */
+    @Test
+    public void testPreparedStatement() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+
+        try {
+            connection = JDBCTools.getConnection();
+            String sql = "INSERT INTO customers (name, email, birth) "
+                    + "VALUES(?,?,?)";
+
+            //创建PreparedStatement
+            preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1, "ATGUIGU");
+            preparedStatement.setString(2, "simpleit@163.com");
+            preparedStatement.setDate(3, new Date(new java.util.Date().getTime()));
+
+            //执行sql
+            preparedStatement.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JDBCTools.releaseDB(null, preparedStatement, connection);
+        }
+    }
 
 }
