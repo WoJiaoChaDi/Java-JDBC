@@ -1,5 +1,8 @@
 package com.atguigu.jdbc;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
+import javax.sql.DataSource;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -49,7 +52,19 @@ public class JDBCTools {
 		}
 	}
 
+	private static DataSource dataSource = null;
+
+	//数据库连接池应只被初始化一次.
+	static{
+		dataSource = new ComboPooledDataSource("helloc3p0");
+	}
+
+	//用C3P0重新获取连接方法
 	public static Connection getConnection() throws Exception {
+		return dataSource.getConnection();
+	}
+
+	public static Connection getConnection_old() throws Exception {
 		Properties properties = new Properties();
 		InputStream inStream = JDBCTools.class.getClassLoader()
 				.getResourceAsStream("jdbc.properties");
