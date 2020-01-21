@@ -2,6 +2,9 @@ package com.atguigu.jdbc;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.MapHandler;
+import org.apache.commons.dbutils.handlers.MapListHandler;
+import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.junit.Test;
 
 import java.sql.Connection;
@@ -10,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 测试 DBUtils 工具类
@@ -94,4 +98,91 @@ public class DBUtilsTest {
         }
     }
 
+    /**
+     * 1. ResultSetHandler 的作用: QueryRunner 的 query 方法的返回值最终取决于
+     * query 方法的 ResultHandler 参数的 hanlde 方法的返回值.
+     *
+     * 2. BeanListHandler: 把结果集转为一个 Bean 的 List, 并返回. Bean 的类型在
+     * 创建 BeanListHanlder 对象时以 Class 对象的方式传入. 可以适应列的别名来映射
+     * JavaBean 的属性名:
+     * String sql = "SELECT id, name customerName, email, birth " +
+     *			"FROM customers WHERE id = ?";
+     *
+     * BeanListHandler(Class<T> type)
+     *
+     * 3. BeanHandler: 把结果集转为一个 Bean, 并返回. Bean 的类型在创建 BeanHandler
+     * 对象时以 Class 对象的方式传入
+     * BeanHandler(Class<T> type)
+     *
+     * 4. MapHandler: 把结果集转为一个 Map 对象, 并返回. 若结果集中有多条记录, 仅返回
+     * 第一条记录对应的 Map 对象. Map 的键: 列名(而非列的别名), 值: 列的值
+     *
+     * 5. MapListHandler: 把结果集转为一个 Map 对象的集合, 并返回.
+     * Map 的键: 列名(而非列的别名), 值: 列的值
+     *
+     * 6. ScalarHandler: 可以返回指定列的一个值或返回一个统计函数的值.
+     */
+
+    @Test
+    public void testScalarHandler(){
+        Connection connection = null;
+        QueryRunner queryRunner = new QueryRunner();
+
+        String sql = "SELECT name FROM customers " +
+                "WHERE id = ?";
+
+        try {
+            connection = JDBCTools.getConnection();
+            Object count = queryRunner.query(connection, sql,
+                    new ScalarHandler(), 6);
+
+            System.out.println(count);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            JDBCTools.releaseDB(null, null, connection);
+        }
+    }
+
+    @Test
+    public void testMapListHandler(){
+        Connection connection = null;
+        QueryRunner queryRunner = new QueryRunner();
+
+        String sql = "SELECT id, name, email, birth " +
+                "FROM customers";
+
+        try {
+            connection = JDBCTools.getConnection();
+            List<Map<String, Object>> mapList = queryRunner.query(connection,
+                    sql, new MapListHandler());
+
+            System.out.println(mapList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            JDBCTools.releaseDB(null, null, connection);
+        }
+    }
+
+    @Test
+    public void testMapHandler(){
+        Connection connection = null;
+        QueryRunner queryRunner = new QueryRunner();
+
+        String sql = "SELECT id, name customerName, email, birth " +
+                "FROM customers WHERE id = ?";
+
+        try {
+            connection = JDBCTools.getConnection();
+            Map<String, Object> map = queryRunner.query(connection,
+                    sql, new MapHandler(), 4);
+
+            System.out.println(map);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            JDBCTools.releaseDB(null, null, connection);
+        }
+    }
 }
