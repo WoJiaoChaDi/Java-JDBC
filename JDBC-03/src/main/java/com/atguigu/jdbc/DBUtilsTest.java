@@ -8,10 +8,12 @@ import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.junit.Test;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -216,6 +218,46 @@ public class DBUtilsTest {
             e.printStackTrace();
         } finally{
             JDBCTools.releaseDB(null, null, conn);
+        }
+    }
+
+    /**
+     * 如何使用JDBC 调用存储在数据库中的函数或存储过程
+     */
+    @Test
+    public void testCallableStatment(){
+        Connection connection = null;
+        CallableStatement callableStatement = null;
+
+        try {
+            connection = JDBCTools.getConnection();
+
+            // 1. 通过Connection 对象的 prepareCall() 方法创建一个 CallableStatement 对象的实例。
+            // 在使用Connection 对象的 preparedCall() 方法时，需要传入一个String类型的字符串，该字符串用于指明如何调用存储过程
+            String sql = "{?= call sum_salary(?, ?)}";//函数
+            //String sql = "{call sum_salary(?, ?)}";//存储过程
+            callableStatement = connection.prepareCall("");
+
+            // 2. 通过CallableStatement 对象的 registerOutParameter() 方法注册OUT 对象
+            callableStatement.registerOutParameter(1, Types.NUMERIC);
+            callableStatement.registerOutParameter(3, Types.NUMERIC);
+
+            // 3. 通过 CallableStatement 对象的 setXxx() 方法设定 IN 或 IN OUT 参数 ，若想将参数默认值设定为null，可以使用setNull() 方法
+            callableStatement.setInt(2, 80);
+
+            // 4. 通过 CallableStatement 对象的 execute() 方法执行存储过程
+            callableStatement.execute();
+
+            // 5. 如果所调用的是待返回参数的次数过程，还需要通过 callableStatement 对象的 getXxx() 方法获取其返回值
+            double sumSalary = callableStatement.getDouble(1);
+            long empCount = callableStatement.getLong(3);
+
+            System.out.println(sumSalary);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
         }
     }
 }
