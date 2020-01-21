@@ -2,6 +2,7 @@ package com.atguigu.jdbc;
 
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.MapHandler;
 import org.apache.commons.dbutils.handlers.MapListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
@@ -183,6 +184,38 @@ public class DBUtilsTest {
             e.printStackTrace();
         } finally{
             JDBCTools.releaseDB(null, null, connection);
+        }
+    }
+
+    /**
+     * 测试 ResultSetHandler 的 BeanListHandler 实现类
+     * BeanListHandler: 把结果集转为一个 Bean 的 List. 该 Bean
+     * 的类型在创建 BeanListHandler 对象时传入:
+     *
+     * new BeanListHandler<>(Customer.class)
+     *
+     */
+    @Test
+    public void testBeanListHandler(){
+        String sql = "SELECT id, name customerName, email, birth " +
+                "FROM customers";
+
+        //1. 创建 QueryRunner 对象
+        QueryRunner queryRunner = new QueryRunner();
+
+        Connection conn = null;
+
+        try {
+            conn = JDBCTools.getConnection();
+
+            Object object = queryRunner.query(conn, sql,
+                    new BeanListHandler<>(Customer.class));
+
+            System.out.println(object);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally{
+            JDBCTools.releaseDB(null, null, conn);
         }
     }
 }
